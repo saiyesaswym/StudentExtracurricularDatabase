@@ -1,0 +1,20 @@
+-- Located in index.php
+-- Checks if user input username and password are in database
+-- $username and $password are user inputs (used j.miller@uni.edu and 9001001 here as examples)
+SELECT	persons.Email, students.Univ_ID, majors.Major_Name
+FROM	students
+		INNER JOIN persons ON students.Univ_ID = persons.Univ_ID
+        INNER JOIN majors ON students.Major_Code = majors.Major_ID
+WHERE	persons.Email = 'j.miller@uni.edu'
+		AND students.Univ_ID = 9001001;
+        
+
+-- Located in RegisteredEvents.php
+-- Selects all events attended by a specific student
+-- $userid is user input (used 9001020 here as an example)
+SELECT	events.Event_ID, events.Name, events.Description, events.Location, 
+		events.Start_Date, events.Start_Time, departments.Dept_Name
+FROM	events
+		INNER JOIN student_event ON events.Event_ID = student_event.Event_ID
+        INNER JOIN departments ON events.Dept_ID = departments.Dept_ID
+WHERE	student_event.Univ_ID = 9001020;

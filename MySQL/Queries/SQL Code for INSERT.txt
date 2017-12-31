@@ -1,0 +1,7 @@
+-- INSERT COMMAND IS FOR EVENTS TABLE
+-- Located in AddEvent.php
+-- Adds input information into EVENTS table
+-- Event_ID is NULL so auto-increment occurs
+-- Question marks are input values that are then binded using PHP
+INSERT INTO events (Event_ID, Name, Description, Location, Start_Date, Start_Time, End_Date, End_Time, Category_ID, Dept_ID) 
+VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?);

@@ -1,0 +1,69 @@
+-- Located in events.php
+-- Selectes all events, combining department and category ID with respective tables
+SELECT 		*
+FROM		events_view
+ORDER BY 	events_view.Start_Date, events_view.Start_Time, events_view.Name;
+
+
+-- Located in StudentEvent2.php
+-- Selects All students who attended a specific event input by the user, ordered by Last Name
+-- $eventid is user input (used 1001 here as an example)
+SELECT 		persons.Univ_ID, persons.First_Name, persons.Last_Name 
+FROM 		persons INNER JOIN student_event on persons.Univ_ID = student_event.Univ_ID
+WHERE 		student_event.Event_ID = 1001
+ORDER BY	persons.Last_Name;
+
+
+-- Located in StudentEventMajor3.php
+-- Selects all students of a certain major who attended a certain event, ordered by Last Name
+-- $eventid is user input(used 1001 here as an example)
+-- $majorid is user input (used 101 here as an example)
+SELECT 		persons.Univ_ID, persons.First_Name, persons.Last_Name 
+FROM		students 
+			INNER JOIN persons ON students.Univ_ID = persons.Univ_ID
+			INNER JOIN majors ON students.Major_Code = majors.Major_ID
+            INNER JOIN student_event ON students.Univ_ID = student_event.Univ_ID
+WHERE		students.Major_Code = 101 AND student_event.Event_ID = 1001
+ORDER BY	persons.Last_Name;
+
+
+-- Located in Major.php
+-- Selects ID, Name, and Dept of all majors
+SELECT 	* 
+FROM 	majors_view;
+
+
+-- Located in RegisteredEvents.php
+-- Selects all events registered for by a certain student, ordered by Start Date
+-- $studentid is user input (used 9001020 here as an example)
+SELECT 		events.Event_ID, events.Name, events.Description, events.Location, 
+			events.Start_Date, events.Start_Time 
+FROM		student_event INNER JOIN events ON student_event.Event_ID = events.Event_ID
+WHERE		student_event.Univ_ID = 9001020
+ORDER BY	events.Start_Date;
+
+
+-- Located in StudentEventCategory2.php
+-- Selects all distinct students who attended an event in a certain category, ordered by student's year in school, and Last Name
+-- $catid is user input (used 10 here as an example)
+SELECT		DISTINCT persons.Univ_ID, persons.First_Name, persons.Last_Name, students.Year
+FROM		students
+			INNER JOIN persons ON students.Univ_ID = persons.Univ_ID
+            INNER JOIN student_event ON students.Univ_ID = student_event.Univ_ID
+            INNER JOIN events ON student_event.Event_ID = events.Event_ID
+WHERE		events.Category_ID = 10
+ORDER BY	students.Year, persons.Last_Name;
+
+
+-- Located in AdvisorEvents2.php
+-- Selects all students and all events those students attended for a particular faculty advisor, ordered by year in school and last name
+-- $univid is user input (used 5001014 here as an example)
+SELECT		persons.Univ_ID, persons.First_Name, persons.Last_Name, students.Year,
+			events.Event_ID, events.Name, events.Location, events.Start_Date,
+			events.Start_Time
+FROM		students
+			INNER JOIN persons ON students.Univ_ID = persons.Univ_ID
+            INNER JOIN student_event ON students.Univ_ID = student_event.Univ_ID
+            INNER JOIN events ON student_event.Event_ID = events.Event_ID
+WHERE		students.Advisor_ID = 5001014
+ORDER BY	students.Year, persons.Last_Name;

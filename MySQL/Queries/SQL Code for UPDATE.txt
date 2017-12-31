@@ -1,0 +1,81 @@
+-- ALL UPDATE COMMANDS ARE FOR EVENTS TABLE
+
+-- Located in UpdateEventName.php
+-- Updates an Event's Name based on user input
+-- $eventid is user input
+-- Question marks are input values that are then binded using PHP
+UPDATE 	events 
+SET 	Name = ? 
+WHERE 	event_ID = '{$eventid}';
+
+
+-- Located in UpdateEventDesc.php
+-- Updates an Event's Description based on user input
+-- $eventid is user input
+-- Question marks are input values that are then binded using PHP
+UPDATE 	events 
+SET 	Description = ? 
+WHERE 	event_ID = '{$eventid}';
+
+
+-- Located in UpdateEventLoc.php
+-- Updates an Event's Location based on user input
+-- $eventid is user input
+-- Question marks are input values that are then binded using PHP
+UPDATE 	events 
+SET 	Location = ? 
+WHERE 	event_ID = '{$eventid}';
+
+
+-- Located in UpdateEventSD.php
+-- Updates an Event's Start Date based on user input
+-- $eventid is user input
+-- Question marks are input values that are then binded using PHP
+UPDATE 	events 
+SET 	Start_Date = ? 
+WHERE 	event_ID = '{$eventid}';
+
+
+-- Located in UpdateEventST.php
+-- Updates an Event's Start Time based on user input
+-- $eventid is user input
+-- Question marks are input values that are then binded using PHP
+UPDATE 	events 
+SET 	Start_Time = ? 
+WHERE 	event_ID = '{$eventid}';
+
+
+-- Located in UpdateEventED.php
+-- Updates an Event's End Date based on user input
+-- $eventid is user input
+-- Question marks are input values that are then binded using PHP
+UPDATE 	events 
+SET 	End_Date = ? 
+WHERE 	event_ID = '{$eventid}';
+
+
+-- Located in UpdateEventET.php
+-- Updates an Event's End Time based on user input
+-- $eventid is user input
+-- Question marks are input values that are then binded using PHP
+UPDATE 	events 
+SET 	End_Time = ? 
+WHERE 	event_ID = '{$eventid}';
+
+
+-- Located in UpdateEventCat.php
+-- Updates an Event's Category ID based on user input
+-- $eventid is user input
+-- Question marks are input values that are then binded using PHP
+UPDATE 	events 
+SET 	Category_ID = ? 
+WHERE 	event_ID = '{$eventid}';
+
+
+-- Located in UpdateEventDept.php
+-- Updates an Event's Department ID based on user input
+-- $eventid is user input
+-- Question marks are input values that are then binded using PHP
+UPDATE 	events 
+SET 	Dept_ID = ? 
+WHERE 	event_ID = '{$eventid}';

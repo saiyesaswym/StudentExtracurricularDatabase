@@ -1,0 +1,63 @@
+-- Checks to occur before inserting a new tuple into EVENTS table
+CREATE TRIGGER `extracurricular`.`checks_BEFORE_INSERT`
+BEFORE INSERT ON `events` FOR EACH ROW
+
+
+BEGIN
+	if new.End_Date IS NOT NULL and new.End_Time IS NOT NULL then
+		if new.End_Date = new.Start_Date and new.End_Time <= new.Start_Time then
+			set new.End_Time = NULL;
+		elseif new.End_Date < new.Start_Date then
+			set new.End_Date = NULL, new.End_Time = NULL;
+		else
+			set new.End_Date = new.End_Date;
+		end if;
+	elseif new.End_Date IS NULL and new.End_Time IS NOT NULL then
+		if new.End_Time <= new.Start_Time then
+			set new.End_Time = NULL;
+		else
+			set new.ENd_Time = new.End_Time;
+		end if;
+	end if;
+    
+    	IF new.Category_ID > (SELECT MAX(Category_ID) FROM event_categories) OR new.Category_ID < 1 THEN
+    		set new.Category_ID = 0;
+    	END IF;
+    
+    	IF new.Dept_ID > (SELECT MAX(Dept_ID) FROM departments) OR new.Dept_ID < 1 THEN
+    		set new.Dept_ID = 0;
+    	END IF;
+END
+
+
+
+-- Checks to occur before updating an existing tuple in EVENTS table
+CREATE TRIGGER `extracurricular`.`checks_BEFORE_UPDATE`
+BEFORE UPDATE ON `events` FOR EACH ROW
+
+
+BEGIN
+	if new.End_Date IS NOT NULL and new.End_Time IS NOT NULL then
+		if new.End_Date = new.Start_Date and new.End_Time <= new.Start_Time then
+			set new.End_Time = NULL;
+		elseif new.End_Date < new.Start_Date then
+			set new.End_Date = NULL, new.End_Time = NULL;
+		else
+			set new.End_Date = new.End_Date;
+		end if;
+	elseif new.End_Date IS NULL and new.End_Time IS NOT NULL then
+		if new.End_Time <= new.Start_Time then
+			set new.End_Time = NULL;
+		else
+			set new.ENd_Time = new.End_Time;
+		end if;
+    end if;
+
+	IF new.Category_ID > (SELECT MAX(Category_ID) FROM event_categories) OR new.Category_ID < 1 THEN
+    	set new.Category_ID = 0;
+    END IF;
+    
+    IF new.Dept_ID > (SELECT MAX(Dept_ID) FROM departments) OR new.Dept_ID < 1 THEN
+    	set new.Dept_ID = 0;
+    END IF;
+END

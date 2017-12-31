@@ -1,0 +1,12 @@
+-- Located in DeleteTrans.php
+-- Delete user input Event ID from STUDENT_EVENT table
+-- $eventID is user input
+DELETE FROM student_event 
+WHERE Event_ID = '{$eventID}';
+
+
+-- Located in DeleteTrans.php
+-- Delete user input Event ID from EVENTS table
+-- $eventID is user input
+DELETE FROM events 
+WHERE Event_ID = '{$eventID}';

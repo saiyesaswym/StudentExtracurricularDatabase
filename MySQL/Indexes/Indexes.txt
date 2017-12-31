@@ -1,0 +1,4 @@
+-- Creates a unique index on the unique combinations of Univ_ID and Event_ID
+CREATE UNIQUE INDEX student_event_combo
+
+ON student_event (Univ_ID, Event_ID);

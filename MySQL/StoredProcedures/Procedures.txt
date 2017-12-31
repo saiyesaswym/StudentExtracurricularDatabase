@@ -1,0 +1,37 @@
+-- Create stored procedure to count number of events
+DELIMITER //
+
+CREATE PROCEDURE num_events (
+OUT num_eve int)
+BEGIN
+	SELECT 	COUNT(*) INTO num_eve
+	FROM	events;
+END //
+
+DELIMITER ;
+
+
+-- Create stored procedure to count number of faculty members
+DELIMITER //
+
+CREATE PROCEDURE num_faculty (
+OUT num_fac int)
+BEGIN
+	SELECT 	COUNT(*) INTO num_fac
+	FROM	faculty;
+END //
+
+DELIMITER ;
+
+
+-- Create stored procedure to count number of students
+DELIMITER //
+
+CREATE PROCEDURE num_students (
+OUT num_stu int)
+BEGIN
+	SELECT 	COUNT(*) INTO num_stu
+	FROM	students;
+END //
+
+DELIMITER ;

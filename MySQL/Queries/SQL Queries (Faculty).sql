@@ -1,0 +1,33 @@
+-- Located in index.php
+-- Checks if user input username and password are in database
+-- $username and $password are user inputs (used m.patterson@uni.edu and 5001014 here as examples)
+SELECT 	persons.Email, faculty.Univ_ID, faculty.Dept_ID, departments.Dept_Name
+FROM	faculty
+		INNER JOIN persons ON faculty.Univ_ID = persons.Univ_ID
+        INNER JOIN departments ON faculty.Dept_ID = departments.Dept_ID
+WHERE	persons.Email = 'm.patterson@uni.edu' 
+		AND faculty.Univ_ID = 5001014;
+        
+
+-- Located in Advisees.php
+-- Selects all students who are advisees of a certain faculty member
+-- $userID is user input (used 5001014 here as an example)        
+SELECT		persons.First_Name, persons.Last_Name, persons.Univ_ID
+FROM		persons INNER JOIN students ON persons.Univ_ID = students.Univ_ID
+WHERE		students.Advisor_ID = 5001014
+ORDER BY	persons.Last_Name;
+
+
+-- Located in AdvisorEventsAttended.php
+-- Selects all students of a specific advisor who attended a certain event, 
+-- ordered by year of student in school, Last Name, and event Start Date
+-- $eventNum and $userId are user input (used 1016 and 5001014 here as examples)
+SELECT		persons.First_Name, persons.Last_Name, persons.Univ_ID, 
+			students.Year, events.Name
+FROM		persons
+			INNER JOIN students ON persons.Univ_ID = students.Univ_ID
+            INNER JOIN student_event ON students.Univ_ID = student_event.Univ_ID
+            INNER JOIN events ON student_event.Event_ID = events.Event_ID
+WHERE		events.Event_ID = 1016
+			AND students.Advisor_ID = 5001014
+ORDER BY 	persons.Last_Name, students.Year, events.Start_Date;            

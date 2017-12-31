@@ -1,0 +1,162 @@
+-- View of events table merged with departments and event_categories on Foreign Keys
+CREATE 
+    
+	ALGORITHM = UNDEFINED 
+    
+	DEFINER = `root`@`localhost` 
+    
+	SQL SECURITY DEFINER
+
+VIEW `events_view` AS
+    
+	SELECT 
+        
+		`events`.`Event_ID` AS `Event_ID`,
+        
+		`events`.`Name` AS `Name`,
+        
+		`events`.`Description` AS `D1`,
+        
+		`events`.`Location` AS `Location`,
+        
+		`events`.`Start_Date` AS `Start_Date`,
+        
+		`events`.`Start_Time` AS `Start_Time`,
+        
+		`events`.`End_Date` AS `End_Date`,
+        
+		`events`.`End_Time` AS `End_Time`,
+        
+		`departments`.`Dept_Name` AS `Dept_Name`,
+        
+		`event_categories`.`Description` AS `D2`
+    
+	FROM
+        
+		((`events`
+        
+		JOIN `departments` ON ((`events`.`Dept_ID` = `departments`.`Dept_ID`)))
+        
+		JOIN `event_categories` ON ((`events`.`Category_ID` = `event_categories`.`Category_ID`)))
+
+
+-- View of major IDs, names, and departments from majors table
+CREATE
+ 
+    ALGORITHM = UNDEFINED
+ 
+    DEFINER = `root`@`localhost`
+ 
+    SQL SECURITY DEFINER
+
+VIEW `majors_view` AS
+
+    SELECT
+ 
+        `majors`.`Major_ID` AS `Major_ID`,
+
+         `majors`.`Major_Name` AS `Major_Name`,
+
+         `departments`.`Dept_Name` AS `Dept_Name`
+
+    FROM
+
+        (`majors`
+
+        JOIN `departments` ON ((`majors`.`Dept_ID` = `departments`.`Dept_ID`)))
+
+
+-- View of students login (email) and password (University ID) combinations
+CREATE
+ 
+    ALGORITHM = UNDEFINED
+ 
+    DEFINER = `root`@`localhost`
+ 
+    SQL SECURITY DEFINER
+
+VIEW `studentlogin_view` AS
+
+     SELECT
+ 
+        `students`.`Univ_ID` AS `Univ_ID`,
+
+         `persons`.`First_Name` AS `First_Name`,
+
+         `persons`.`Last_Name` AS `Last_Name`,
+
+         `persons`.`Email` AS `Email`
+
+     FROM
+
+         (`persons`
+
+         JOIN `students` ON ((`persons`.`Univ_ID` = `students`.`Univ_ID`)))
+
+     ORDER BY `persons`.`Last_Name` , `persons`.`First_Name`
+
+
+-- View of faculty login (email) and password (University ID) combinations
+CREATE
+ 
+    ALGORITHM = UNDEFINED
+ 
+    DEFINER = `root`@`localhost`
+ 
+    SQL SECURITY DEFINER
+
+VIEW `facultylogin_view` AS
+
+     SELECT
+ 
+        `faculty`.`Univ_ID` AS `Univ_ID`,
+
+         `persons`.`First_Name` AS `First_Name`,
+ 
+        `persons`.`Last_Name` AS `Last_Name`,
+
+         `persons`.`Email` AS `Email`
+
+     FROM
+
+         (`persons`
+
+        JOIN `faculty` ON ((`persons`.`Univ_ID` = `faculty`.`Univ_ID`)))
+
+     ORDER BY `persons`.`Last_Name` , `persons`.`First_Name`
+
+
+-- View of events table merged with departments table (student's view of events)
+CREATE
+ 
+    ALGORITHM = UNDEFINED
+ 
+    DEFINER = `root`@`localhost`
+ 
+    SQL SECURITY DEFINER
+
+VIEW `studentevents_view` AS
+
+     SELECT
+ 
+        `events`.`Event_ID` AS `Event_ID`,
+ 
+        `events`.`Name` AS `Name`,
+
+         `events`.`Description` AS `Description`,
+ 
+        `events`.`Location` AS `Location`,
+ 
+        `events`.`Start_Date` AS `Start_Date`,
+
+         `events`.`Start_Time` AS `Start_Time`,
+
+         `departments`.`Dept_Name` AS `Dept_Name`
+
+     FROM 
+
+         (`events`
+ 
+        JOIN `departments` ON ((`events`.`Dept_ID` = `departments`.`Dept_ID`)))
+ 
+    ORDER BY `events`.`Start_Date` , `events`.`Start_Time` , `events`.`Name`

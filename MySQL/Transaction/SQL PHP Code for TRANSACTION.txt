@@ -1,0 +1,41 @@
+-- TRANSACTION IS FOR student_event AND event TABLE
+-- To remove an event, it must first be removed from student_event linking table
+-- It can then be removed from the events table
+-- If first deletion fails, the second deletion cannot occur
+-- SQL CODE:
+
+DELETE FROM student_event 
+WHERE Event_ID = '{$eventID}';
+
+DELETE FROM events 
+WHERE Event_ID = '{$eventID}';
+
+COMMIT WORK
+
+
+// PHP CODE:
+require_once('../connection.php');
+		
+mysqli_autocommit($dbc, false);
+$flag = true;
+$query1 = "DELETE FROM student_event WHERE Event_ID = '{$eventID}'";
+$query2 = "DELETE FROM events WHERE Event_ID = '{$eventID}'";		
+$result = mysqli_query($dbc, $query1);	
+		
+if(!$result) {
+	$flag = false;
+	echo "<br /><br />Error details: " . mysqli_error($dbc) . ".";
+}
+$result = mysqli_query($dbc, $query2);
+	
+if(!$result) {
+	$flag = false;
+	echo "<br /><br />Error details: " . mysqli_error($dbc) . ".";
+}		
+		
+if($flag) {
+	mysqli_commit($dbc);
+	echo "<br /><br />Transaction Successful";
+}
+		
+mysqli_close($dbc);
